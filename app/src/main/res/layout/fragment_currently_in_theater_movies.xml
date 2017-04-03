@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fractals.cinemanight.fragments.CurrentlyInTheaterMoviesFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_currently_in_theater_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_marginTop="16dp" />
+
+</FrameLayout>
