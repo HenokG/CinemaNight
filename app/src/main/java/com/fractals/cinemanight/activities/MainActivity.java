@@ -25,7 +25,7 @@ import com.fractals.cinemanight.adapters.TabAdapter;
 import com.fractals.cinemanight.fragments.CurrentlyInTheaterMoviesFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_local_movies_white_24dp));
-        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_queue_white_24dp));
+//        tabLayout.getTabAt(0).setIcon(R.drawable.inset_for_local_movies);
+//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_queue_white_24dp);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

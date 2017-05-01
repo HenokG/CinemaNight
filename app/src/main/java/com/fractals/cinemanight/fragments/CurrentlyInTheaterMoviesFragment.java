@@ -57,7 +57,6 @@ public class CurrentlyInTheaterMoviesFragment extends Fragment {
                 if(movieList != null && movieList.size() > 0){
                     for (int i = 0; i < movieList.size(); i++) {
                         Movie movie = movieList.get(i);
-                        i("info", ">> HenokG:: " + movie.getTitle());
                         moviesRecyclerAdapter.notifyDataSetChanged();
                     }
                 }
@@ -91,7 +90,7 @@ public class CurrentlyInTheaterMoviesFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent i = new Intent(getContext(), MovieDetailActivity.class);
-//                i.putExtra("tvShow", movieList.get(position));
+                i.putExtra(FinalConstants.movieTag, movieList.get(position));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //For Shared Element Transition
                     ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity()

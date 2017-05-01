@@ -1,8 +1,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fractals.cinemanight.activities.MovieDetailActivity"
-    tools:showIn="@layout/activity_movie_detail"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:showIn="@layout/activity_movie_detail">
 
     <data>
 
@@ -13,16 +13,18 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout_marginTop="-00dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_description_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:foregroundGravity="fill_vertical"
+            android:focusableInTouchMode="true"
             android:padding="10dp">
 
             <TextView
@@ -31,41 +33,255 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="10dp"
+                android:text="@{movie.title}"
                 android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Avengers 3: Infinity War" />
+                tools:text="Avengers 3: Infinity War" />
 
             <TextView
                 android:id="@+id/detail_movie_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:lineSpacingExtra="5dp"
                 android:maxLines="7"
-                android:layout_marginTop="16dp"
                 android:scrollHorizontally="true"
-                android:text="@string/large_text"
+                android:text="@{movie.description}"
                 android:textColor="@android:color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detail_movie_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/detail_movie_title" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:text="More"
                 android:id="@+id/more_button"
-                android:onClick="onDescriptionClick"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimary"
+                android:onClick="onDescriptionClick"
+                android:text="More"
+                app:layout_constraintTop_toBottomOf="@id/detail_movie_description"
                 android:textColor="@android:color/white"
-                app:layout_constraintTop_toBottomOf="@+id/detail_movie_description"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/more_button"
+                android:text="all times are in local"
+                android:layout_height="wrap_content" />
+
+            <TableLayout
+                android:id="@+id/table_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_height="35dp" />
+                app:layout_constraintTop_toBottomOf="@+id/more_button">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_first_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Internationally Opening "
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_first_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text="@{movie.internationalOpeningDate}"
+                        android:textColor="@android:color/black"
+                        tools:text="16 July 2018" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_second_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Local Opening"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_second_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text="@{movie.cinemaOpeningDate}"
+                        android:textColor="@android:color/black"
+                        tools:text="18 July 2018" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_third_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Genres"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_third_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{movie.genres}"
+                        android:paddingBottom="10dp"
+                        android:textColor="@android:color/black"
+                        tools:text="Action | Adventure | Fantasy" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_fourth_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Budget"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_fourth_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text="@{movie.budget}"
+                        android:textColor="@android:color/black"
+                        tools:text="$324 Million USD" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_fifth_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Playing Dates"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_fifth_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text="@{movie.playingDates}"
+                        android:textColor="@android:color/black"
+                        tools:text="Monday @ 4:00PM | Sunday 12:00PM | Tuesday 4:00PM | 3:00PM" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_sixth_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Ticket Price"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_sixth_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text='@{String.valueOf(movie.ticketPrice) + " Birr"}'
+                        android:textColor="@android:color/black"
+                        tools:text="60 Birr" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/detail_seventh_row_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Removal From Cinema"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/detail_seventh_row_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:text="@{movie.removalDate}"
+                        android:textColor="@android:color/black"
+                        tools:text="April 90 2018" />
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_margin="20dp"
+                    android:background="@android:color/darker_gray" />
+
+            </TableLayout>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

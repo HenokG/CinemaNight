@@ -1,21 +1,28 @@
 package com.fractals.cinemanight.structural.design;
 
-public class Movie {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.fractals.cinemanight.BR;
+
+public class Movie extends BaseObservable implements Parcelable{
 
 	private String id;
 	private String title;
 	private String posterUrl;
-	private String description;
-	private String[] genres;
-	private String internationalOpeningDate;
-	// Optional fields
-	private String budget;
-	private String cinemaOpeningDate;
+	private String genres;
+    private String internationalOpeningDate;
+    // Optional fields
+    private String description;
+    private String budget;
+    private String cinemaOpeningDate;
 	private String removalDate;
 	private String playingDates;
-	private long ticketPrice;
+	private double ticketPrice;
 
-    public Movie(String id, String title, String posterUrl, String description, String[] genres, String internationalOpeningDate) {
+    public Movie(String id, String title, String posterUrl, String description, String genres, String internationalOpeningDate) {
         this.id = id;
         this.title = title;
         this.posterUrl = posterUrl;
@@ -48,19 +55,11 @@ public class Movie {
         this.posterUrl = posterUrl;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String[] getGenres() {
+    public String getGenres() {
         return genres;
     }
 
-    public void setGenres(String[] genres) {
+    public void setGenres(String genres) {
         this.genres = genres;
     }
 
@@ -72,43 +71,110 @@ public class Movie {
         this.internationalOpeningDate = internationalOpeningDate;
     }
 
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        notifyPropertyChanged(BR.description);
+    }
+
+    @Bindable
     public String getBudget() {
         return budget;
     }
 
     public void setBudget(String budget) {
         this.budget = budget;
+        notifyPropertyChanged(BR.budget);
     }
 
+    @Bindable
     public String getCinemaOpeningDate() {
         return cinemaOpeningDate;
     }
 
     public void setCinemaOpeningDate(String cinemaOpeningDate) {
         this.cinemaOpeningDate = cinemaOpeningDate;
+        notifyPropertyChanged(BR.cinemaOpeningDate);
     }
 
+    @Bindable
     public String getRemovalDate() {
         return removalDate;
     }
 
     public void setRemovalDate(String removalDate) {
         this.removalDate = removalDate;
+        notifyPropertyChanged(BR.removalDate);
     }
 
+    @Bindable
     public String getPlayingDates() {
         return playingDates;
     }
 
     public void setPlayingDates(String playingDates) {
         this.playingDates = playingDates;
+        notifyPropertyChanged(BR.playingDates);
     }
 
-    public long getTicketPrice() {
+    @Bindable
+    public double getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(long ticketPrice) {
+    public void setTicketPrice(double ticketPrice) {
         this.ticketPrice = ticketPrice;
+        notifyPropertyChanged(BR.ticketPrice);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(posterUrl);
+        parcel.writeString(genres);
+        parcel.writeString(internationalOpeningDate);
+        parcel.writeString(description);
+        parcel.writeString(budget);
+        parcel.writeString(cinemaOpeningDate);
+        parcel.writeString(removalDate);
+        parcel.writeString(playingDates);
+        parcel.writeDouble(ticketPrice);
+    }
+
+    protected Movie(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        posterUrl = in.readString();
+        genres = in.readString();
+        internationalOpeningDate = in.readString();
+        description = in.readString();
+        budget = in.readString();
+        cinemaOpeningDate = in.readString();
+        removalDate = in.readString();
+        playingDates = in.readString();
+        ticketPrice = in.readDouble();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
 }
