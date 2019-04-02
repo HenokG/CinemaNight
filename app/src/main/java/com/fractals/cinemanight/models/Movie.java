@@ -7,6 +7,12 @@ import android.os.Parcelable;
 
 import com.fractals.cinemanight.BR;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+
+import java.util.Arrays;
+
+@Entity
 public class Movie extends BaseObservable implements Parcelable{
 
 	private String id;
@@ -163,6 +169,14 @@ public class Movie extends BaseObservable implements Parcelable{
         removalDate = in.readString();
         playingDates = in.readString();
         ticketPrice = in.readDouble();
+    }
+
+    public static Movie[] toMovies(Parcelable[] parcelables) {
+        if (parcelables == null) {
+            return null;
+        } else {
+            return Arrays.copyOf(parcelables, parcelables.length, Movie[].class);
+        }
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
