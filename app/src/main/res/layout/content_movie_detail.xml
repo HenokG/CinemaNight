@@ -8,7 +8,7 @@
 
         <variable
             name="movie"
-            type="com.fractals.cinemanight.structural.design.Movie" />
+            type="com.fractals.cinemanight.models.Movie" />
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -17,45 +17,58 @@
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_marginTop="-00dp">
+        tools:layout_marginTop="-200dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_description_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:focusableInTouchMode="true"
-            android:padding="10dp">
+            android:focusableInTouchMode="true">
 
-            <TextView
-                android:id="@+id/detail_movie_title"
-                android:layout_width="0dp"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/title_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:text="@{movie.title}"
-                android:textAppearance="?android:textAppearanceLarge"
+                android:background="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Avengers 3: Infinity War" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/detail_movie_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:lineSpacingExtra="5dp"
-                android:maxLines="7"
-                android:scrollHorizontally="true"
-                android:text="@{movie.description}"
-                android:textColor="@android:color/black"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detail_movie_title" />
+                <TextView
+                    android:id="@+id/detail_movie_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/white"
+                    android:text="@{movie.title}"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Avengers 3: Infinity War" />
+
+                <TextView
+                    android:id="@+id/detail_movie_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="5dp"
+                    android:maxLines="7"
+                    android:paddingBottom="16dp"
+                    android:scrollHorizontally="true"
+                    android:text="@{movie.description}"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_movie_title"
+                    tools:text="@string/lorem" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <Button
                 android:id="@+id/more_button"
@@ -65,17 +78,18 @@
                 android:background="@color/colorPrimary"
                 android:onClick="onDescriptionClick"
                 android:text="More"
-                app:layout_constraintTop_toBottomOf="@id/detail_movie_description"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_container" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/more_button"
                 android:text="all times are in local"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toBottomOf="@+id/more_button"
+                tools:layout_editor_absoluteX="18dp" />
 
             <TableLayout
                 android:id="@+id/table_layout"
@@ -160,8 +174,8 @@
                         android:id="@+id/detail_third_row_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{movie.genres}"
                         android:paddingBottom="10dp"
+                        android:text="@{movie.genres}"
                         android:textColor="@android:color/black"
                         tools:text="Action | Adventure | Fantasy" />
 
@@ -282,6 +296,47 @@
                     android:background="@android:color/darker_gray" />
 
             </TableLayout>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/table_layout" />
+
+            <ImageView
+                android:id="@+id/web_splash"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/youtube"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/table_layout" />
+
+            <TextView
+                android:id="@+id/similar_movies_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Similar Movies"
+                android:textAppearance="?android:textAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/webView" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/similar_movies_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:paddingBottom="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/similar_movies_label" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

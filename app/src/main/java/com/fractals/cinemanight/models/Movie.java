@@ -1,4 +1,4 @@
-package com.fractals.cinemanight.structural.design;
+package com.fractals.cinemanight.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import com.fractals.cinemanight.BR;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Arrays;
 

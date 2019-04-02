@@ -1,6 +1,6 @@
 package com.fractals.cinemanight.api.operations;
 
-import com.fractals.cinemanight.structural.design.Movie;
+import com.fractals.cinemanight.models.Movie;
 
 import java.util.List;
 

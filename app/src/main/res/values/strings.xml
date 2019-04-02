@@ -96,4 +96,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="lorem">\tLorem ipsum dolor sit amet, consectetur adipisicing elit. A alias aut autem debitis ducimus ex in, nam quisquam quod reprehenderit rerum temporibus unde ut. Alias delectus eos quae ut vel.</string>
+    <string name="no_notification_movie"> when you add a movie to notification list,\n It will show up here.</string>
+    <string name="nothing_is_added">Nothing is Added.</string>
 </resources>

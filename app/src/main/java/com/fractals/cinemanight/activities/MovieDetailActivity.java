@@ -3,9 +3,12 @@ package com.fractals.cinemanight.activities;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,10 +19,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fractals.cinemanight.R;
+import com.fractals.cinemanight.adapters.MoviesRecyclerAdapter;
 import com.fractals.cinemanight.api.operations.MovieApiService;
 import com.fractals.cinemanight.databinding.ActivityMovieDetailBinding;
-import com.fractals.cinemanight.structural.design.Movie;
+import com.fractals.cinemanight.models.Movie;
 import com.fractals.cinemanight.util.FinalConstants;
+
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,11 +62,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         movie = getIntent().getExtras().getParcelable(FinalConstants.movieTag);
         movieDetailBinding.setMovie(movie);
 
-        Glide.with(this).load(movie.getPosterUrl()).diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into((ImageView) findViewById(R.id.detail_movie_poster));
+//        Glide.with(this).load(movie.getPosterUrl()).diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into((ImageView) findViewById(R.id.detail_movie_poster));
 
         LoadDetailOfMovieOnNewThread loadDetailOfMovieOnNewThread = new LoadDetailOfMovieOnNewThread();
         loadDetailOfMovieOnNewThread.execute(null, null, null);
+
+        Parcelable[] similarMoviesParcelable =  getIntent().getExtras().getParcelableArray(FinalConstants.similarMoviesTag);
+        Movie[] similarMovies = Movie.toMovies(similarMoviesParcelable);
+        populateSimilarMovies(similarMovies);
 
     }
 
@@ -78,7 +88,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
-    public class LoadDetailOfMovieOnNewThread extends AsyncTask{
+    private void populateSimilarMovies(Movie[] similarMovies) {
+        MoviesRecyclerAdapter moviesRecyclerAdapter = new MoviesRecyclerAdapter(Arrays.asList(similarMovies));
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.similar_movies_recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(moviesRecyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    private class LoadDetailOfMovieOnNewThread extends AsyncTask{
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -103,6 +121,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                     i("info", ">> HenokG:: " + throwable.getMessage());
                 }
             });
+            return null;
+        }
+    }
+
+    private class LoadTrailerOfMovieOnNewThread extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(FinalConstants.youTubeRequestUrl)
+                    .addConverterFactory(GsonConverterFactory.create()).build();
+
+            movieApiService = retrofit.create(MovieApiService.class);
             return null;
         }
     }
